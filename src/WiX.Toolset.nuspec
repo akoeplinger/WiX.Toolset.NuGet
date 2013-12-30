@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-16"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata minClientVersion="2.7">
+        <id>WiX.Toolset</id>
+        <version>3.7.1224.0</version>
+        <title>WiX Toolset (unofficial)</title>
+        <summary>Windows Installer XML (WiX Toolset) binaries for compiling setup projects.</summary>
+        <description>This package contains the binaries needed to compile Windows Installer XML (WiX) setup projects. Just add this NuGet package to your WiX setup projects and you're done (no setup required on build servers etc.).</description>
+        <authors>Rob Mensching,Bob Arnson</authors>
+        <owners>akoeplinger</owners>
+        <licenseUrl>https://github.com/akoeplinger/WiX.Toolset/blob/v3.7.1224.0/LICENSE.md</licenseUrl>
+        <iconUrl>http://wixtoolset.org/Content/logo_framed.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <tags>WiX MSI Installer XML</tags>
+		<releaseNotes>
+			WiX Toolset v3.7 introduces self-update and reference counting for Bundles. Also includes a number of bug fixes since the v3.6 release.
+
+			The v3.7 RTM build is v3.7.1224.0.
+
+			For more information see: http://robmensching.com/blog/posts/2012/12/24/WiX-v3.7-released
+		</releaseNotes>
+    </metadata>
+</package>
