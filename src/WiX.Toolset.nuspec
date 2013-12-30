@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-16"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata minClientVersion="2.7">
+        <id>WiX.Toolset</id>
+        <version>3.8.1128.0</version>
+        <title>WiX Toolset (unofficial)</title>
+        <summary>Windows Installer XML (WiX Toolset) binaries for compiling setup projects.</summary>
+        <description>This package contains the binaries needed to compile Windows Installer XML (WiX) setup projects. Just add this NuGet package to your WiX setup projects and you're done (no setup required on build servers etc.).</description>
+        <authors>Rob Mensching,Bob Arnson</authors>
+        <owners>akoeplinger</owners>
+        <licenseUrl>https://github.com/akoeplinger/WiX.Toolset/blob/v3.8.1128.0/LICENSE.md</licenseUrl>
+        <iconUrl>http://wixtoolset.org/Content/logo_framed.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <tags>WiX MSI Installer XML</tags>
+		<releaseNotes>
+			The v3.8 RTM build is v3.8.1128.0.
+
+			For more information see: http://robmensching.com/blog/posts/2013/11/28/wix-v3.8-released and http://www.joyofsetup.com/2013/11/28/wix-v3-8-released/.
+
+			Major features of WiX v3.8 are:
+				Support for Visual Studio 2013 in Votive and the WiX native libraries. (Bob Arnson and Rob Mensching)
+				Bootstrapper application functions to extend WixStandardBootstrapperApplication. (Neil Sleightholm)
+
+			Minor features include:
+				Properly detect Windows 8.1 version in Burn. (Blair Murri)
+				Visual Studio 2013 detection properties in WixVSExtension. (Bob Arnson)
+				fun.AutoVersion preprocessor function to provide automatic version numbers. (Neil Sleightholm)
+				New WixStandardBootstrapperApplication themes. (Neil Sleightholm)
+				Options in CloseApplication to send end-session messages, to be prompted if programs are still running, and to terminate the process if gentler requests are ignored. (Rob Mensching)
+				ThmUtil (and therefore WixStandardBootstrapperApplication) supports hidden controls and transparent images. (Neil Sleightholm and Rob Mensching)
+				LocUtil (and therefore WixStandardBootstrapperApplication) supports probing for default language resources rather than requiring region-specific language resources. (Neil Sleightholm)
+
+			The following issues were fixed in WiX v3.8:
+				Feature 2912 | IIS extension scheme should support ApplicationPoolIdentity ("ursoft")
+				Bug 3101 | Publish@Property doesn't accept WixVariables
+				Feature 3149 | Digitally sign or hash WiX binaries (Rob Mensching)
+				Bug 3165 | AssemblyFolders missing when running x64 MSBuild (Bob Arnson)
+				Bug 3667 | Unclear if "Name" attribute is required in RemoveFile tag (Bob Arnson)
+				Bug 3714 | Version number in registry key makes it detection difficult (Bob Arnson)
+				Bug 3733 | The bootstrapper's variables are not determined after reboot
+				Bug 3737 | Can't define RemotePayload for Payload (Bob Arnson)
+				Bug 3757 | Harvesting project from VS2010 generate errors for .resx (Stefan Agner)
+				Feature 3778 | Utils::CloseApplication should send WMQUERYENDSESSION and WMENDSESSION (Rob Mensching)
+				Bug 3783 | Wix install kicked off from BootStrapper doesn't show progress bar progress.. (Rob Mensching)
+				Bug 3786 | Localization: Installer ES/ IT: Duplicate hotkey 'A' in the EULA page. (Christopher Painter)
+				Bug 3807 | VS Add Reference dialog doesn't show BootstrapperCore assembly (Bob Arnson)
+				Bug 3822 | ParallelCache causes wrong status in UI (Rob Mensching)
+				Bug 3828 | Solution Will Not Build and Test Projects Will Not Load (Rob Mensching)
+				Bug 3830 | PreProcExampleExtension old format (Bob Arnson)
+				Bug 3837 | Cannot install toolset under Windows 7 Enterprise (Rob Mensching)
+				Bug 3839 | VS2012 path macro points to VS2010 in example 'CustomAction' (Bob Arnson)
+				Bug 3854 | Cannot Print twice with PrintEULA (FireGiant)
+				Bug 3856 | Burn Can't Handle Files-In-Use Messages
+				Bug 3857 | Build fails (Rob Mensching)
+				Bug 3864 | NetFxExtension doc page not mentioning .NET 4.5 properties (Bob Arnson)
+				Bug 3870 | Documentation bug regarding Directory/@ComponentGuidGenerationSeed (Bob Arnson)
+				Bug 3872 | WiX 3.6 Requires .NET 2.0 (Bob Arnson)
+				Bug 3874 | Cannot install Wix37.exe to Windows 7 64-bit platform without seeing error.
+				Bug 3875 | VS2008 build crash
+				Bug 3891 | .NET Framework 4.5 properties not documented (Neil Sleightholm)
+				Bug 3905 | No way to pass arguments to LaunchTarget (Rob Mensching)
+				Bug 3917 | WiX 3.8 build fails (Rob Mensching)
+				Bug 3922 | Incorrect language detection in burn (Neil Sleightholm)
+				Bug 3923 | wix38.exe claims copyright Microsoft Corporation (Rob Mensching)
+				Bug 3938 | There is no more Lux in WiX binaries since v3.7
+				Bug 3943 | Support for XP broken when WiX is built using VS2012 (Rob Mensching)
+				Bug 3950 | WXL schema recognized by WixStdBA (Bob Arnson)
+				Bug 3953 | heat.exe hangs with 100% cpu (Mike Carlson)
+				Bug 3958 | Version attributes only allow to have a single binder variable to replace the whole string
+				Bug 3965 | MediaTemplate ignores CompressionLevel attribute (Bob Arnson)
+				Bug 3970 | Cannot install 3.8.4xx (Rob Mensching)
+				Bug 3975 | Wixca.dll is linked against wrong version of kernel32.dll (Rob Mensching)
+				Feature 3983 | WixStdBA: Action Data Messages (Jacob Hoover)
+				Bug 3988 | Enable Remote WiX Extensions and other assemblies
+				Bug 3990 | Creating Application Pool sets "Enable 32-Bit Applications" to true despite Win64="yes"
+				Bug 3994 | Un-handled Exception (Mike Carlson)
+				Bug 3995 | 'heat reg' causes candle CNDL1138 warnings (Neil Sleightholm)
+				Bug 4028 | ComPlusApplication CustomAction and related properties should be secure (Bob Arnson)
+				Bug 4032 | heat.exe produces uncompilable output (Blair Murri)
+				Bug 4036 | pyro ArgumentOutOfRangeException in PatchAPIMarshaller.CreateArrayOfStringA (Blair Murri)
+				Bug 4037 | Broken link on page CustomAction Element (Blair Murri)
+				Bug 4042 | CNDL0004 with Msmq inside Foreach Preprocessor (Blair Murri)
+				Bug 4055 | Insignia removes all other certificates from the MsiDigitalCertificate table (Jacob Hoover)
+				Bug 4056 | Insignia uses invalid identifiers for digital certificates (Jacob Hoover)
+				Bug 4057 | Null Reference exception in Unbinder:UnbindTransform processing MSPs (Blair Murri)
+				Bug 4061 | Call RtlGetVersion out of ntdll.dll to get OS version (Blair Murri)
+				Bug 4062 | Heat harvesting is URL Encoding parenthesis in "Content" filenames resulting in LGHT0103 errors. (Blair Murri)
+				Bug 4068 | MsiPackage/@bal:Overridable="yes" results in misleading error message. (Bob Arnson)
+				Bug 4072 | NullReferenceException in pyro.exe (Blair Murri)
+				Feature 4073 | Write WIX current version in registry (Bob Arnson)
+				Feature 4080 | Source Zip File from Codeplex (Rob Mensching)
+				Bug 4082 | Wix Manul URL broken (Rob Mensching)
+				Bug 4083 | Website manual cannot be navigated. (Rob Mensching)
+				Feature 4091 | VS2013 versions of libraries should be included in the native SDK (Rob Mensching)
+				Feature 4092 | Votive should support VS2013 (Bob Arnson)
+				Feature 4093 | Project and item templates should be provided for VS2013 (Bob Arnson)
+				Bug 4104 | Wrong language ID for Slovenian specified on site (Blair Murri)
+				Feature 4120 | Remove SetupBld and friends from WiX v3.8 (Bob Arnson)
+				Bug 4128 | Manifest Burn stub for Windows 8.1 (Bob Arnson)
+				Bug 4142 | WXL File without correct namespace throws incorrect error (Bob Arnson)
+				Feature 4144 | Icons for WiX Visual Studio 2012/2013 templates (Aleksandr Vishnyakov and Blair Murri)
+				Feature 4146 | Verify all VS2013 SKUs are detected in WixVSExtension (Bob Arnson)
+				Feature 4152 | WixPdbPath should be removed (Bob Arnson)
+				Bug 4155 | Media vs MediaTemplate Compression (Bob Arnson)
+				Bug 4158 | Exception thrown without Media* and with Tag (Bob Arnson)
+				Feature 4160 | Prepare for RTM (Rob Mensching)
+				Bug 4168 | Melt.exe exception when decompiling MSI and WIXPDB files (Bob Arnson)
+				Bug 4175 | Support VS2013 in VSIX Extension (Bob Arnson)
+				Bug 4185 | Vs extension not Visual Studio 2013 aware (Bob Arnson)
+				Bug 4197 | VS2013 WixVSExtension properties not documented (Bob Arnson)
+				Bug 4198 | Detect condition for NetFx 4.51 (Bob Arnson)
+				Bug 4201 | wix.chm - invalid value for BoostrapperApplicationRef (Bob Arnson)
+		</releaseNotes>
+    </metadata>
+</package>
