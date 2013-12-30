@@ -8,6 +8,7 @@
         <description>This package contains the binaries needed to compile Windows Installer XML (WiX) setup projects. Just add this NuGet package to your WiX setup projects and you're done (no setup required on build servers etc.).</description>
         <authors>Rob Mensching,Bob Arnson</authors>
         <owners>akoeplinger</owners>
+        <projectUrl>https://github.com/akoeplinger/WiX.Toolset</projectUrl>
         <licenseUrl>https://github.com/akoeplinger/WiX.Toolset/blob/v3.8.1128.0/LICENSE.md</licenseUrl>
         <iconUrl>http://wixtoolset.org/Content/logo_framed.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
