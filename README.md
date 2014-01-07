@@ -1,5 +1,5 @@
-WiX.Toolset
-============
+WiX.Toolset.NuGet
+=================
 
 This repository hosts the files used for creating the unofficial WiX.Toolset NuGet package:
 https://nuget.org/packages/WiX.Toolset  
