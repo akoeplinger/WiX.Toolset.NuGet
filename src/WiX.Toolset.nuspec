@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-16"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata minClientVersion="2.7">
+        <id>WiX.Toolset</id>
+        <version>3.9.1006.0</version>
+        <title>WiX Toolset (unofficial)</title>
+        <summary>Windows Installer XML (WiX Toolset) binaries for compiling setup projects.</summary>
+        <description>This package contains the binaries needed to compile Windows Installer XML (WiX) setup projects. Just add this NuGet package to your WiX setup projects and you're done (no setup required on build servers etc.). Note that you still need to install WiX Toolset in Visual Studio to get the editor experience.
+
+        File issues with the NuGet package at https://github.com/akoeplinger/WiX.Toolset.NuGet
+        </description>
+        <authors>Rob Mensching,Bob Arnson</authors>
+        <owners>akoeplinger</owners>
+        <projectUrl>https://github.com/akoeplinger/WiX.Toolset.NuGet</projectUrl>
+        <licenseUrl>https://github.com/akoeplinger/WiX.Toolset.NuGet/blob/v3.9.1006.0/LICENSE.md</licenseUrl>
+        <iconUrl>http://wixtoolset.org/Content/logo_framed.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <tags>WiX MSI Installer XML</tags>
+        <releaseNotes>
+            The WiX Toolset v3.9 release is version 3.9.1006.0.
+
+            Contributors:
+                @robmen
+                @barnson
+                @rseanhall
+                @jchoover
+                @heaths
+                @FernandoNunes
+                @flcdrg
+                @champloo
+                @firegiantco
+                @sryze
+                @gordonmcshane
+                @johnbuuck
+                @mavxg
+                @ericschultz
+
+            Major features:
+                @rseanhall lets you run a post-install configuration tool that requires elevated priveleges after a bundle is installed. #3249
+                @jchoover added update detection to the Burn engine. #4190
+                @jchoover updated the WiX installer to use the new update feature.
+                @rseanhall added support for multiple managed-BA pre-requisite packages. #4161
+                @rseanhall added support for secure string variables in Burn. #4299
+
+            Minor features:
+                @heaths added the Windows "Threshold" compatibility GUID to Burn.
+                @FernandoNunes contributed localizations for Portuguese for WixSqlExtension.
+                @robmen updated the WiX release feed for the update functionality in the WiX installer. #4501
+                @barnson changed the WiX installer to install the native-code WiX SDK for Visual Studio Express editions.
+                @robmen marked deprecated command-line switches that are removed from WiX v4.0. #4188
+                @barnson added a verbose message that reveals how much time was spent running ICE validation.
+                @barnson made a few updates that made the WiX build faster on many-core machines.
+                @heaths added support for temporary object columns in DTF.
+                @flcdrg added support in DTF custom action builds to include COM interop reference assemblies.
+                @heaths added support for Visual Studio "Dev14" in WixVSExtension detection properties.
+                @heaths added support for user creation in WixUtilExtension to be non-vital (i.e., fail without causing rolling back). #4424
+                @rseanhall added a blocker to prevent .NET 4.5.2 from being used as a pre-req package on Windows 7 RTM because .NET 4.5.2 requires Windows 7 SP1. #4416
+                @heaths added policy support to move the Burn package cache to a non-default folder. #4278
+                @rseanhall added the WixBundleExecutePackageCacheFolder bundle variable. #3736
+                @robmen defaulted Burn to using hashes to verify payloads rather than digital signature. #4243
+                @barnson added the ProcessorArchitecture, WixBundleOriginalSourceFolder, and WixBundleFileVersion bundle variables. #4125 #4378
+                @gordonmcshane added .NET 4.5.2 package groups to WixNetFxExtension.
+                @johnbuuck added support for MSBuild v12.0 in project harvesting. #4279
+                @rseanhall added the @Cache="always" value to force a bundle's package to be cached even if the package won't be installed. #3978 #4329
+                @heaths added a number of features and fixes to better support ref-counting and patching in Burn. #4241 #4242
+                @mavxg added User/@LogonAsBatchJob to WixUtilExtension.
+                @barnson added the -sextract switch to Melt.exe to not extract MSI package payloads but still update the .wixpdb. #4239
+
+            Fixes:
+                @robmen fixed a long-standing bug in WixStdBA that caused a hang when installing as local system on Windows Vista and Server 2008. #4114
+                @robmen fixed a bug dating from WiX v2.0(!) that caused bad modularization when keywords like OR were part of property names. #4513
+                @rseanhall fixed a nitty-gritty bug in DTF tools that created custom action DLLs that didn't exactly follow an arcane spec. #4502
+                @barnson fixed a bug in Burn that caused command lines to replicate like gray goo when a BA called Plan multiple times. #4510
+                @rseanhall added a missing extension to the binaries .zip.
+                @rseanhall made sure that that a bundle's bootstrapper application is the first payload in the UX container so Burn doesn't try to execute an arbitrary file. #4491
+                @jchoover tweaked the WiX installer to skip checking for updates when it doesn't make sense. #4481 #4488
+                @barnson fixed Burn so it resumes after rebooting. #4486
+                @barnson fixed Burn so it didn't ignore a rollback of a related bundle. #4456
+                @jchoover fixed some memory leaks in Burn. Also fixed some memory leaks in Burn.
+                @barnson fixed DTF so that it doesn't exclusively lock icons when reading them. #4466
+                @barnson solved the case of the mysteriously missing native-code SDK files. #4474 #4476
+                @barnson fixed Wix.sln by removing an obsolete file. #4473
+                @rseanhall made sure Burn cleans up a downloaded update when appropriate. #4472
+                @barnson made sure the WiX installer doesn't crash when you don't have a browser installed that knows about .html files. #4460
+                @barnson added a warning to the doc about a limitation with PerfCounterManifest. #4471
+                @rseanhall ensured that you can use LaunchTarget without LaunchArguments. #4470
+                @rseanhall changed DTF so it sets the working directory for a custom action. #4458
+                @rseanhall decided that Burn should decrypt files coming from an encrypted folder. #4459
+                @heaths converted, enhanced, and cleaned up some duplication in the WiX tests.
+                @heaths let you have an unreal table with way too many columns. #4431
+                @heaths optimized away the repair of dependent bundles of uninstalling a bundle is a no-op. #4430
+                @heaths showed progress in Burn when waiting on BITS to download. #4429
+                @heaths supported long command lines after rebooting in a bundle. #4425 #4427
+                @heaths optimized some Burn patch detection. #4366 #4420
+                @barnson validated MsiPackage product versions are legal for Burn (when using .msi packages built with something other than WiX, which apparently sometimes still happens) #4443
+                @barnson fixed a problem with a particular CustomTable definition. #3838
+                @champloo convinced tools to show an error rather than throw an exception when they can't set file attributes. #4097
+                @firegiantco made it possible to use any legal exit code in ExePackage/ExitCode/@Value. #4319
+                @barnson updated the list of tables that prevent patch uninstall. #4442
+                @sryze fixed the layout of a WixUI dialog when localized into Russian.
+                @rseanhall added verification to the VersionVariables for managed BAs. #3951
+                @rseanhall prevented Burn from entering an endless loop with a malformed command line. #3890
+                @robmen made sure error codes are reported during cache checking in Burn. #4288
+                @robmen pointed to new documentation on wixtoolset.org for error 0217. #4208
+                @barnson added a check of file size when determining whether a cabinet needs to be rebuilt in the linker. #3701
+                @barnson fixed the layout of a WixUI dialog for Portuguese. #4134
+                @barnson fixed a crash in Dark.exe. #4192
+                @barnson added some documentation about output type in Votive property pages. #4125
+                @barnson plugged a memory leak in Burn and removed some dead code. #4418
+                @rseanhall fixed Burn to ensure progress isn't above 100 percent. #3835
+                @barnson fixed compression level when set with MediaTemplate. #4410
+                @barnson added some documentation to clarify the things that change "bitness" when using the -arch switch. #4215
+                @barnson prevented infinite recursion of include files by enforcing a maximum depth. #4394
+                @rseanhall wielded the red pencil and improved the documentation.
+                @barnson restored MsuPackage's ability to set RemotePayload. #4384
+                @rseanhall supported DTF being installed into the GAC. #4163
+                @barnson clarified an error message about quotes in filenames. #4361
+                @ericschultz ensured that VsizPackage ids that contain spaces are quoted. #4328
+                @barnson fixed a crash in Heat. #4331
+        </releaseNotes>
+    </metadata>
+</package>
