@@ -45,12 +45,35 @@
             no files will be modified at the source location.
             </remarks>
         </member>
+        <member name="E:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Message">
+            <summary>
+            Handle this event to receive status messages when operations are performed
+            on the install package.
+            </summary>
+            <example>
+            <c>installPackage.Message += new InstallPackageMessageHandler(Console.WriteLine);</c>
+            </example>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.LogMessage(System.String,System.Object[])">
             <summary>
             Sends a message to the <see cref="E:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Message"/> event-handler.
             </summary>
             <param name="format">Message string, containing 0 or more format items</param>
             <param name="args">Items to be formatted</param>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.SourceDirectory">
+            <summary>
+            Gets or sets the location to obtain source files and cabinets when
+            extracting or updating files in the working directory. This is often
+            the location of an original copy of the package that is not meant
+            to be modified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.WorkingDirectory">
+            <summary>
+            Gets or sets the location where files will be extracted to/updated from. Also
+            the location where a temporary folder is created during some operations.
+            </summary>
         </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.FindFiles(System.String)">
             <summary>
@@ -83,6 +106,14 @@
             <param name="fileKeys">List of file key strings to extract</param>
             <remarks>If any files have the uncompressed attribute, they will be copied
             from the <see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.SourceDirectory"/>.</remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.GetFilePaths(System.String,System.Collections.Generic.ICollection{System.String})">
+            <summary>
+            Provides a key (filename) / value (full path) pair where the Binary files can be worked with
+            </summary>
+            <param name="path">The path to search for files in.  This is NOT recursive.</param>
+            <param name="names">The explicit names to search for.  All will be returned if nothing specified.</param>
+            <returns>A <see cref="M:System.Colletions.Generic.IDictionary`1{string,string}"/> of the filename/fullpath key value pairs of the directory given.</returns>
         </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.UpdateFiles">
             <summary>
@@ -130,51 +161,24 @@
             <see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.CompressionLevel"/> property.</p>
             </remarks>
         </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.ClearReadOnlyAttribute(System.String,System.Collections.IEnumerable)">
+            <summary>
+            Clears the +R flag on the specified files in the directory of your choice.
+            </summary>
+            <param name="baseDirectory">
+            This base path is prepended to each item in the <paramref name="filePaths"/> collection.
+            </param>
+            <param name="filePaths">
+            A <seealso cref="T:System.Collections.IEnumerable"/> collection of filePaths.  If the objects within override ToString to return a valid path relative to
+            <paramref name="baseDirectory"/> this method will work.
+            </param>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.UpdateDirectories">
             <summary>
             Rebuilds the cached directory structure information accessed by the
             <see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Directories"/> and <see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Files"/> properties. This
             should be done after modifying the File, Component, or Directory
             tables, or else the cached information may no longer be accurate.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.ApplyPatch(Microsoft.Deployment.WindowsInstaller.Package.PatchPackage,System.String)">
-            <summary>
-            Applies a patch package to the database, resulting in an installation package that
-            has the patch built-in.
-            </summary>
-            <param name="patchPackage">The patch package to be applied</param>
-            <param name="transform">Optional name of the specific transform to apply.
-            This parameter is usually left null, which causes the patch to be searched for
-            a transform that is valid to apply to this database.</param>
-            <remarks>
-            If the patch contains any binary file patches, they will not immediately be applied
-            to the target files, though they will at installation time.
-            <p>After calling this method you can use <see cref="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Consolidate(System.String)"/> to apply
-            the file patches immediately and also discard any outdated files from the package.</p>
-            </remarks>
-        </member>
-        <member name="E:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Message">
-            <summary>
-            Handle this event to receive status messages when operations are performed
-            on the install package.
-            </summary>
-            <example>
-            <c>installPackage.Message += new InstallPackageMessageHandler(Console.WriteLine);</c>
-            </example>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.SourceDirectory">
-            <summary>
-            Gets or sets the location to obtain source files and cabinets when
-            extracting or updating files in the working directory. This is often
-            the location of an original copy of the package that is not meant
-            to be modified.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.WorkingDirectory">
-            <summary>
-            Gets or sets the location where files will be extracted to/updated from. Also
-            the location where a temporary folder is created during some operations.
             </summary>
         </member>
         <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Directories">
@@ -203,6 +207,22 @@
             <remarks>
             If the Directory table is modified, this mapping will be outdated
             until you close and reopen the install package.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.ApplyPatch(Microsoft.Deployment.WindowsInstaller.Package.PatchPackage,System.String)">
+            <summary>
+            Applies a patch package to the database, resulting in an installation package that
+            has the patch built-in.
+            </summary>
+            <param name="patchPackage">The patch package to be applied</param>
+            <param name="transform">Optional name of the specific transform to apply.
+            This parameter is usually left null, which causes the patch to be searched for
+            a transform that is valid to apply to this database.</param>
+            <remarks>
+            If the patch contains any binary file patches, they will not immediately be applied
+            to the target files, though they will at installation time.
+            <p>After calling this method you can use <see cref="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Consolidate(System.String)"/> to apply
+            the file patches immediately and also discard any outdated files from the package.</p>
             </remarks>
         </member>
         <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPackage.Property">
@@ -245,12 +265,6 @@
             or targetshort|targetlong:sourceshort|sourcelong syntax for a directory.</param>
             <param name="useShortNames">true to parse the short part of the combined filename; false to parse the long part</param>
         </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPath.ToString">
-            <summary>
-            Gets the full source path.
-            </summary>
-            <returns><see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPath.SourcePath"/></returns>
-        </member>
         <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPath.ParentPath">
             <summary>
             Gets the path of the parent directory.
@@ -281,9 +295,20 @@
             Gets the full target path.
             </summary>
         </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPath.ToString">
+            <summary>
+            Gets the full source path.
+            </summary>
+            <returns><see cref="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPath.SourcePath"/></returns>
+        </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection">
             <summary>
             Represents a collection of InstallPaths that are the child paths of the same parent directory.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
             </summary>
         </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.Add(Microsoft.Deployment.WindowsInstaller.Package.InstallPath)">
@@ -337,21 +362,16 @@
             Removes all items from the collection.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.Count">
+            <summary>
+            Gets the number of items in the collection.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.GetEnumerator">
             <summary>
             Gets an enumerator over all items in the collection.
             </summary>
             <returns>An enumerator for the collection.</returns>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathCollection.Count">
-            <summary>
-            Gets the number of items in the collection.
-            </summary>
         </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap">
             <summary>
@@ -401,6 +421,37 @@
             Creates a new empty InstallPathMap.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.SourcePaths">
+            <summary>
+            Gets a mapping from keys to source paths.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.TargetPaths">
+            <summary>
+            Gets a mapping from keys to target paths.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Item(System.String)">
+            <summary>
+            Gets or sets an install path for a direcotry, component, or file key.
+            </summary>
+            <param name="key">Depending on the type of InstallPathMap, this is the primary key from the
+            either the Directory, Component, or File table.</param>
+            <remarks>
+            Changing an install path does not modify the Database used to generate this InstallPathMap.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Keys">
+            <summary>
+            Gets the collection of keys in the InstallPathMap. Depending on the type of InstallPathMap,
+            they are all directory, component, or file key strings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Values">
+            <summary>
+            Gets the collection of InstallPath values in the InstallPathMap.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Add(System.String,Microsoft.Deployment.WindowsInstaller.Package.InstallPath)">
             <summary>
             Sets an install path for a direcotry, component, or file key.
@@ -444,47 +495,16 @@
             Removes all entries from the dictionary.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Count">
+            <summary>
+            Gets the number of entries in the dictionary.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.GetEnumerator">
             <summary>
             Gets an enumerator over all entries in the dictionary.
             </summary>
             <returns>An enumerator for the dictionary.</returns>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.SourcePaths">
-            <summary>
-            Gets a mapping from keys to source paths.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.TargetPaths">
-            <summary>
-            Gets a mapping from keys to target paths.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Item(System.String)">
-            <summary>
-            Gets or sets an install path for a direcotry, component, or file key.
-            </summary>
-            <param name="key">Depending on the type of InstallPathMap, this is the primary key from the
-            either the Directory, Component, or File table.</param>
-            <remarks>
-            Changing an install path does not modify the Database used to generate this InstallPathMap.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Keys">
-            <summary>
-            Gets the collection of keys in the InstallPathMap. Depending on the type of InstallPathMap,
-            they are all directory, component, or file key strings.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Values">
-            <summary>
-            Gets the collection of InstallPath values in the InstallPathMap.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.InstallPathMap.Count">
-            <summary>
-            Gets the number of entries in the dictionary.
-            </summary>
         </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage">
             <summary>
@@ -499,12 +519,28 @@
             <remarks>The PatchPackage object only opens the patch database in read-only mode, because
             transforms (sub-storages) cannot be read if the database is open in read-write mode.</remarks>
         </member>
+        <member name="E:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.Message">
+            <summary>
+            Handle this event to receive status messages when operations are performed on the patch package.
+            </summary>
+            <example>
+            <c>patchPackage.Message += new InstallPackageMessageHandler(Console.WriteLine);</c>
+            </example>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.LogMessage(System.String,System.Object[])">
             <summary>
             Sends a message to the <see cref="E:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.Message"/> event-handler.
             </summary>
             <param name="format">Message string, containing 0 or more format items</param>
             <param name="args">Items to be formatted</param>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.PatchCode">
+            <summary>
+            Gets the patch code (GUID) of the patch package.
+            </summary>
+            <remarks>
+            The patch code is stored in the RevisionNumber field of the patch summary information.
+            </remarks>
         </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.GetReplacedPatchCodes">
             <summary>
@@ -591,22 +627,6 @@
             special transform prefixed by &quot;#&quot;</param>
             <param name="extractFile">Location where the transform will be extracted</param>
         </member>
-        <member name="E:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.Message">
-            <summary>
-            Handle this event to receive status messages when operations are performed on the patch package.
-            </summary>
-            <example>
-            <c>patchPackage.Message += new InstallPackageMessageHandler(Console.WriteLine);</c>
-            </example>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Package.PatchPackage.PatchCode">
-            <summary>
-            Gets the patch code (GUID) of the patch package.
-            </summary>
-            <remarks>
-            The patch code is stored in the RevisionNumber field of the patch summary information.
-            </remarks>
-        </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Package.TransformInfo">
             <summary>
             Contains properties of a transform package (.MST).
@@ -624,11 +644,6 @@
             </summary>
             <param name="name">Filename of the transform (optional).</param>
             <param name="transformSummaryInfo">Handle to the summary information of a transform package (.MST file).</param>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.TransformInfo.ToString">
-            <summary>
-            Returns the name of the transform.
-            </summary>
         </member>
         <member name="P:Microsoft.Deployment.WindowsInstaller.Package.TransformInfo.Name">
             <summary>
@@ -673,6 +688,11 @@
         <member name="P:Microsoft.Deployment.WindowsInstaller.Package.TransformInfo.Validations">
             <summary>
             Gets the validation flags specified when the transform was generated.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Package.TransformInfo.ToString">
+            <summary>
+            Returns the name of the transform.
             </summary>
         </member>
         <member name="T:Microsoft.Tools.WindowsInstallerXml.WixDistribution">

@@ -4,14 +4,6 @@
         <name>Microsoft.Deployment.Compression.Cab</name>
     </assembly>
     <members>
-        <member name="M:Microsoft.Deployment.Compression.Cab.CabWorker.Dispose(System.Boolean)">
-            <summary>
-            Disposes of resources allocated by the cabinet engine.
-            </summary>
-            <param name="disposing">If true, the method has been called directly or indirectly by a user's code,
-            so managed and unmanaged resources will be disposed. If false, the method has been called by the 
-            runtime from inside the finalizer, and only unmanaged resources will be disposed.</param>
-        </member>
         <member name="M:Microsoft.Deployment.Compression.Cab.CabPacker.Dispose(System.Boolean)">
             <summary>
             Disposes of resources allocated by the cabinet engine.
@@ -100,6 +92,14 @@
             path and returns true to include the file or false to exclude it.
             </remarks>
         </member>
+        <member name="M:Microsoft.Deployment.Compression.Cab.CabWorker.Dispose(System.Boolean)">
+            <summary>
+            Disposes of resources allocated by the cabinet engine.
+            </summary>
+            <param name="disposing">If true, the method has been called directly or indirectly by a user's code,
+            so managed and unmanaged resources will be disposed. If false, the method has been called by the 
+            runtime from inside the finalizer, and only unmanaged resources will be disposed.</param>
+        </member>
         <member name="T:Microsoft.Deployment.Compression.Cab.CabException">
             <summary>
             Exception class for cabinet operations.
@@ -133,13 +133,6 @@
             <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
             <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
         </member>
-        <member name="M:Microsoft.Deployment.Compression.Cab.CabException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Sets the SerializationInfo with information about the exception.
-            </summary>
-            <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        </member>
         <member name="P:Microsoft.Deployment.Compression.Cab.CabException.Error">
             <summary>
             Gets the FCI or FDI cabinet engine error number.
@@ -153,6 +146,13 @@
             </summary>
             <value>A Win32 error code, or 0 if the exception was
             not related to a Win32 error.</value>
+        </member>
+        <member name="M:Microsoft.Deployment.Compression.Cab.CabException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Sets the SerializationInfo with information about the exception.
+            </summary>
+            <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
         </member>
         <member name="M:Microsoft.Deployment.Compression.Cab.CabUnpacker.Dispose(System.Boolean)">
             <summary>
@@ -203,17 +203,6 @@
             <param name="context">The StreamingContext that contains contextual information
             about the source or destination.</param>
         </member>
-        <member name="M:Microsoft.Deployment.Compression.Cab.CabFileInfo.Refresh(Microsoft.Deployment.Compression.ArchiveFileInfo)">
-            <summary>
-            Refreshes the information in this object with new data retrieved
-            from an archive.
-            </summary>
-            <param name="newFileInfo">Fresh instance for the same file just
-            read from the archive.</param>
-            <remarks>
-            This implementation refreshes the <see cref="P:Microsoft.Deployment.Compression.Cab.CabFileInfo.CabinetFolderNumber"/>.
-            </remarks>
-        </member>
         <member name="P:Microsoft.Deployment.Compression.Cab.CabFileInfo.Cabinet">
             <summary>
             Gets or sets the cabinet that contains this file.
@@ -237,6 +226,17 @@
             <value>The number of the cabinet folder containing this file.</value>
             <remarks>A single folder or the first folder of a cabinet
             (or chain of cabinets) is numbered 0.</remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.Compression.Cab.CabFileInfo.Refresh(Microsoft.Deployment.Compression.ArchiveFileInfo)">
+            <summary>
+            Refreshes the information in this object with new data retrieved
+            from an archive.
+            </summary>
+            <param name="newFileInfo">Fresh instance for the same file just
+            read from the archive.</param>
+            <remarks>
+            This implementation refreshes the <see cref="P:Microsoft.Deployment.Compression.Cab.CabFileInfo.CabinetFolderNumber"/>.
+            </remarks>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Cab.CabInfo">
             <summary>
@@ -285,7 +285,7 @@
             Gets information about the certain files contained in the archive file.
             </summary>
             <param name="searchPattern">The search string, such as
-            "*.txt".</param>
+            &quot;*.txt&quot;.</param>
             <returns>A list of <see cref="T:Microsoft.Deployment.Compression.Cab.CabFileInfo"/> objects, each containing
             information about a file in the archive.</returns>
         </member>
@@ -308,6 +308,14 @@
             Creates a new HandleManager instance.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.Compression.Cab.HandleManager`1.Item(System.Int32)">
+            <summary>
+            Gets the object of a handle, or null if the handle is invalid.
+            </summary>
+            <param name="handle">The integer handle previously allocated
+            for the desired object.</param>
+            <returns>The object for which the handle was allocated.</returns>
+        </member>
         <member name="M:Microsoft.Deployment.Compression.Cab.HandleManager`1.AllocHandle(`0)">
             <summary>
             Allocates a new handle for an object.
@@ -321,14 +329,6 @@
             will be invalid and the object it referred to can no longer retrieved.
             </summary>
             <param name="handle">Handle to be freed.</param>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Cab.HandleManager`1.Item(System.Int32)">
-            <summary>
-            Gets the object of a handle, or null if the handle is invalid.
-            </summary>
-            <param name="handle">The integer handle previously allocated
-            for the desired object.</param>
-            <returns>The object for which the handle was allocated.</returns>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Cab.NativeMethods">
             <summary>
@@ -373,16 +373,16 @@
             when it is marshalled back from native code.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.FCI.Handle.IsInvalid">
+            <summary>
+            Checks if the handle is invalid. An FCI handle is invalid when it is zero.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.Compression.Cab.NativeMethods.FCI.Handle.ReleaseHandle">
             <summary>
             Releases the handle by calling FDIDestroy().
             </summary>
             <returns>True if the release succeeded.</returns>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.FCI.Handle.IsInvalid">
-            <summary>
-            Checks if the handle is invalid. An FCI handle is invalid when it is zero.
-            </summary>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Cab.NativeMethods.FDI">
             <summary>
@@ -421,16 +421,16 @@
             when it is marshalled back from native code.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.FDI.Handle.IsInvalid">
+            <summary>
+            Checks if the handle is invalid. An FDI handle is invalid when it is zero.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.Compression.Cab.NativeMethods.FDI.Handle.ReleaseHandle">
             <summary>
             Releases the handle by calling FDIDestroy().
             </summary>
             <returns>True if the release succeeded.</returns>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.FDI.Handle.IsInvalid">
-            <summary>
-            Checks if the handle is invalid. An FDI handle is invalid when it is zero.
-            </summary>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Cab.NativeMethods.ERF">
             <summary>
@@ -440,11 +440,6 @@
             pinned in memory via a GCHandle. The pinning is necessary
             to be able to read the results, since the ERF structure doesn't
             get marshalled back out after an error.</remarks>
-        </member>
-        <member name="M:Microsoft.Deployment.Compression.Cab.NativeMethods.ERF.Clear">
-            <summary>
-            Clears the error information.
-            </summary>
         </member>
         <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.ERF.Oper">
             <summary>
@@ -459,6 +454,11 @@
         <member name="P:Microsoft.Deployment.Compression.Cab.NativeMethods.ERF.Error">
             <summary>
             GCHandle doesn't like the bool type, so use an int underneath.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.Compression.Cab.NativeMethods.ERF.Clear">
+            <summary>
+            Clears the error information.
             </summary>
         </member>
         <member name="T:Microsoft.Tools.WindowsInstallerXml.WixDistribution">

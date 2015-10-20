@@ -24,6 +24,45 @@
             </summary>
             <param name="source">Underlying stream where bytes will be read from or written to.</param>
         </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Crc">
+            <summary>
+            Gets the current CRC over all bytes that have been read or written
+            since this instance was created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Source">
+            <summary>
+            Gets the underlying stream that this stream reads from or writes to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanRead">
+            <summary>
+            Gets a value indicating whether the source stream supports reading.
+            </summary>
+            <value>true if the stream supports reading; otherwise, false.</value>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanWrite">
+            <summary>
+            Gets a value indicating whether the source stream supports writing.
+            </summary>
+            <value>true if the stream supports writing; otherwise, false.</value>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanSeek">
+            <summary>
+            Gets a value indicating whether the source stream supports seeking.
+            </summary>
+            <value>true if the stream supports seeking; otherwise, false.</value>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Length">
+            <summary>
+            Gets the length of the source stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Position">
+            <summary>
+            Gets or sets the position of the source stream.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.Compression.Zip.CrcStream.Seek(System.Int64,System.IO.SeekOrigin)">
             <summary>
             Sets the position within the source stream.
@@ -95,45 +134,6 @@
             <summary>
             Reflects the ordering of certain number of bits. For exmample when reflecting
             one byte, bit one is swapped with bit eight, bit two with bit seven, etc.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Crc">
-            <summary>
-            Gets the current CRC over all bytes that have been read or written
-            since this instance was created.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Source">
-            <summary>
-            Gets the underlying stream that this stream reads from or writes to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanRead">
-            <summary>
-            Gets a value indicating whether the source stream supports reading.
-            </summary>
-            <value>true if the stream supports reading; otherwise, false.</value>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanWrite">
-            <summary>
-            Gets a value indicating whether the source stream supports writing.
-            </summary>
-            <value>true if the stream supports writing; otherwise, false.</value>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.CanSeek">
-            <summary>
-            Gets a value indicating whether the source stream supports seeking.
-            </summary>
-            <value>true if the stream supports seeking; otherwise, false.</value>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Length">
-            <summary>
-            Gets the length of the source stream.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.CrcStream.Position">
-            <summary>
-            Gets or sets the position of the source stream.
             </summary>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Zip.ZipCompressionMethod">
@@ -295,6 +295,12 @@
             Creates a new instance of the zip engine.
             </summary>
         </member>
+        <member name="P:Microsoft.Deployment.Compression.Zip.ZipEngine.ArchiveComment">
+            <summary>
+            Gets the comment from the last-examined archive,
+            or sets the comment to be added to any created archives.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.Compression.Zip.ZipEngine.IsArchive(System.IO.Stream)">
             <summary>
             Checks whether a Stream begins with a header that indicates
@@ -409,12 +415,6 @@
             checking the crc at the end.
             </summary>
         </member>
-        <member name="P:Microsoft.Deployment.Compression.Zip.ZipEngine.ArchiveComment">
-            <summary>
-            Gets the comment from the last-examined archive,
-            or sets the comment to be added to any created archives.
-            </summary>
-        </member>
         <member name="T:Microsoft.Deployment.Compression.Zip.ZipFileInfo">
             <summary>
             Object representing a compressed file within a zip package; provides operations for getting
@@ -449,14 +449,6 @@
             <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
             <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
         </member>
-        <member name="M:Microsoft.Deployment.Compression.Zip.ZipFileInfo.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Sets the SerializationInfo with information about the archive.
-            </summary>
-            <param name="info">The SerializationInfo that holds the serialized object data.</param>
-            <param name="context">The StreamingContext that contains contextual information
-            about the source or destination.</param>
-        </member>
         <member name="P:Microsoft.Deployment.Compression.Zip.ZipFileInfo.CompressedLength">
             <summary>
             Gets the compressed size of the file in bytes.
@@ -466,6 +458,14 @@
             <summary>
             Gets the method used to compress this file.
             </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.Compression.Zip.ZipFileInfo.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Sets the SerializationInfo with information about the archive.
+            </summary>
+            <param name="info">The SerializationInfo that holds the serialized object data.</param>
+            <param name="context">The StreamingContext that contains contextual information
+            about the source or destination.</param>
         </member>
         <member name="T:Microsoft.Deployment.Compression.Zip.ZipInfo">
             <summary>
@@ -514,7 +514,7 @@
             Gets information about the certain files contained in the archive file.
             </summary>
             <param name="searchPattern">The search string, such as
-            "*.txt".</param>
+            &quot;*.txt&quot;.</param>
             <returns>A list of <see cref="T:Microsoft.Deployment.Compression.Zip.ZipFileInfo"/> objects, each containing
             information about a file in the archive.</returns>
         </member>

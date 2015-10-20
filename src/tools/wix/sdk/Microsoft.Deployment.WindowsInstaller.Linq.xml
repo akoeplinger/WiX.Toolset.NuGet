@@ -48,160 +48,6 @@
             Gets or sets the column associated with the record property.
             </summary>
         </member>
-        <member name="T:Microsoft.Deployment.WindowsInstaller.Linq.QRecord">
-            <summary>
-            Generic record entity for queryable databases,
-            and base for strongly-typed entity subclasses.
-            </summary>
-            <remarks>
-            Several predefined specialized subclasses are provided for common
-            standard tables. Subclasses for additional standard tables
-            or custom tables are not necessary, but they are easy to create
-            and make the coding experience much nicer.
-            <para>When creating subclasses, the following attributes may be
-            useful: <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.DatabaseTableAttribute"/>,
-            <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.DatabaseColumnAttribute"/></para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.#ctor">
-            <summary>
-            Do not call. Use QTable.NewRecord() instead.
-            </summary>
-            <remarks>
-            Subclasses must also provide a public parameterless constructor.
-            <para>QRecord constructors are only public due to implementation
-            reasons (to satisfy the new() constraint on the QTable generic
-            class). They are not intended to be called by user code other than
-            a subclass constructor. If the constructor is invoked directly,
-            the record instance will not be properly initialized (associated
-            with a database table) and calls to methods on the instance
-            will throw a NullReferenceException.</para>
-            </remarks>
-            <seealso cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.I(System.Int32)">
-            <summary>
-            Used by subclasses to get a field as an integer.
-            </summary>
-            <param name="index">zero-based column index of the field</param>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.NI(System.Int32)">
-            <summary>
-            Used by subclasses to get a field as a nullable integer.
-            </summary>
-            <param name="index">zero-based column index of the field</param>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ToString">
-            <summary>
-            Dumps all record fields to a string.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Update(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
-            <summary>
-            Update multiple fields in the record (and the database).
-            </summary>
-            <param name="fields">column names of fields to update</param>
-            <param name="values">new values for each field being updated</param>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Update(System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.String})">
-            <summary>
-            Update multiple fields in the record (and the database).
-            </summary>
-            <param name="indexes">column indexes of fields to update</param>
-            <param name="values">new values for each field being updated</param>
-            <remarks>
-            The record (primary keys) must already exist in the table.
-            <para>Updating primary key fields is not yet implemented; use Delete()
-            and Insert() instead.</para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Insert">
-            <summary>
-            Inserts the record in the database.
-            </summary>
-            <remarks>
-            The record (primary keys) may not already exist in the table.
-            <para>Use <see cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/> to get a new 
-            record. Prmary keys and all required fields
-            must be filled in before insertion.</para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Insert(System.Boolean)">
-            <summary>
-            Inserts the record into the table.
-            </summary>
-            <param name="temporary">true if the record is temporarily
-            inserted, to be visible only as long as the database is open</param>
-            <remarks>
-            The record (primary keys) may not already exist in the table.
-            <para>Use <see cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/> to get a new 
-            record. Prmary keys and all required fields
-            must be filled in before insertion.</para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Delete">
-            <summary>
-            Deletes the record from the table if it exists.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Refresh">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Assign">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Merge">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Validate">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateNew">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateFields">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateDelete">
-            <summary>
-            Not yet implemented.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.FieldCount">
-            <summary>
-            Gets the number of fields in the record.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Item(System.String)">
-            <summary>
-            Gets or sets a record field.
-            </summary>
-            <param name="field">column name of the field</param>
-            <remarks>
-            Setting a field value will automatically update the database.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Item(System.Int32)">
-            <summary>
-            Gets or sets a record field.
-            </summary>
-            <param name="index">zero-based column index of the field</param>
-            <remarks>
-            Setting a field value will automatically update the database.
-            </remarks>
-        </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Linq.Queryable">
             <summary>
             Allows any Database instance to be converted into a queryable database.
@@ -357,6 +203,160 @@
         <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QDatabase.RemoveFiles">
             <summary>Queryable standard table with predefined specialized record type.</summary>
         </member>
+        <member name="T:Microsoft.Deployment.WindowsInstaller.Linq.QRecord">
+            <summary>
+            Generic record entity for queryable databases,
+            and base for strongly-typed entity subclasses.
+            </summary>
+            <remarks>
+            Several predefined specialized subclasses are provided for common
+            standard tables. Subclasses for additional standard tables
+            or custom tables are not necessary, but they are easy to create
+            and make the coding experience much nicer.
+            <para>When creating subclasses, the following attributes may be
+            useful: <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.DatabaseTableAttribute"/>,
+            <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.DatabaseColumnAttribute"/></para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.#ctor">
+            <summary>
+            Do not call. Use QTable.NewRecord() instead.
+            </summary>
+            <remarks>
+            Subclasses must also provide a public parameterless constructor.
+            <para>QRecord constructors are only public due to implementation
+            reasons (to satisfy the new() constraint on the QTable generic
+            class). They are not intended to be called by user code other than
+            a subclass constructor. If the constructor is invoked directly,
+            the record instance will not be properly initialized (associated
+            with a database table) and calls to methods on the instance
+            will throw a NullReferenceException.</para>
+            </remarks>
+            <seealso cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.FieldCount">
+            <summary>
+            Gets the number of fields in the record.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Item(System.String)">
+            <summary>
+            Gets or sets a record field.
+            </summary>
+            <param name="field">column name of the field</param>
+            <remarks>
+            Setting a field value will automatically update the database.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Item(System.Int32)">
+            <summary>
+            Gets or sets a record field.
+            </summary>
+            <param name="index">zero-based column index of the field</param>
+            <remarks>
+            Setting a field value will automatically update the database.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.I(System.Int32)">
+            <summary>
+            Used by subclasses to get a field as an integer.
+            </summary>
+            <param name="index">zero-based column index of the field</param>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.NI(System.Int32)">
+            <summary>
+            Used by subclasses to get a field as a nullable integer.
+            </summary>
+            <param name="index">zero-based column index of the field</param>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ToString">
+            <summary>
+            Dumps all record fields to a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Update(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Update multiple fields in the record (and the database).
+            </summary>
+            <param name="fields">column names of fields to update</param>
+            <param name="values">new values for each field being updated</param>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Update(System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Update multiple fields in the record (and the database).
+            </summary>
+            <param name="indexes">column indexes of fields to update</param>
+            <param name="values">new values for each field being updated</param>
+            <remarks>
+            The record (primary keys) must already exist in the table.
+            <para>Updating primary key fields is not yet implemented; use Delete()
+            and Insert() instead.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Insert">
+            <summary>
+            Inserts the record in the database.
+            </summary>
+            <remarks>
+            The record (primary keys) may not already exist in the table.
+            <para>Use <see cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/> to get a new 
+            record. Prmary keys and all required fields
+            must be filled in before insertion.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Insert(System.Boolean)">
+            <summary>
+            Inserts the record into the table.
+            </summary>
+            <param name="temporary">true if the record is temporarily
+            inserted, to be visible only as long as the database is open</param>
+            <remarks>
+            The record (primary keys) may not already exist in the table.
+            <para>Use <see cref="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.NewRecord"/> to get a new 
+            record. Prmary keys and all required fields
+            must be filled in before insertion.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Delete">
+            <summary>
+            Deletes the record from the table if it exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Refresh">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Assign">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Merge">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.Validate">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateNew">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateFields">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QRecord.ValidateDelete">
+            <summary>
+            Not yet implemented.
+            </summary>
+        </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1">
             <summary>
             Represents one table in a LINQ-queryable Database.
@@ -364,7 +364,7 @@
             <typeparam name="TRecord">type that represents one record in the table</typeparam>
             <remarks>
             This class is the primary gateway to all LINQ to MSI query functionality.
-            <para>The TRecord generic parameter may be the general <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.QRecord"/>
+            <para>The TRecord generic parameter may be the general <see cref="T:Microsoft.Deployment.WindowsInstaller.Linq.QRecord" />
             class, or a specialized subclass of QRecord.</para>
             </remarks>
         </member>
@@ -395,6 +395,16 @@
             <param name="db">database that contains the table</param>
             <param name="table">name of the table</param>
         </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.TableInfo">
+            <summary>
+            Gets schema information about the table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.Database">
+            <summary>
+            Gets the database this table is associated with.
+            </summary>
+        </member>
         <member name="M:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.GetEnumerator">
             <summary>
             Enumerates over all records in the table.
@@ -412,16 +422,6 @@
             <para>The record is tied to this table in this database;
             it cannot be inserted into another table or database.</para>
             </remarks>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.TableInfo">
-            <summary>
-            Gets schema information about the table.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Deployment.WindowsInstaller.Linq.QTable`1.Database">
-            <summary>
-            Gets the database this table is associated with.
-            </summary>
         </member>
         <member name="T:Microsoft.Deployment.WindowsInstaller.Linq.Query`1">
             <summary>
