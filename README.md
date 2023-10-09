@@ -1,3 +1,5 @@
+# DEPRECATED - WiX v4 provides official NuGet packages - see https://wixtoolset.org #
+
 WiX.Toolset.NuGet
 =================
 
